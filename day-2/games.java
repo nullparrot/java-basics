@@ -19,8 +19,12 @@ public class games {
         int blue = 14;
 
         // Prepare regex for cube counts
-        String regexString = "(?<red>[0-9]+)(?: red)|(?<green>[0-9]+)(?: green)|(?<blue>[0-9]+)(?: blue)";
-        Pattern search = Pattern.compile(regexString);
+        String redString = "(?<red>[0-9]+)(?: red)";
+        String greenString = "(?<green>[0-9]+)(?: green)";
+        String blueString = "(?<blue>[0-9]+)(?: blue)";
+        Pattern redSearch = Pattern.compile(redString);
+        Pattern greenSearch = Pattern.compile(greenString);
+        Pattern blueSearch = Pattern.compile(blueString);
 
         // Try to open the input text file
         try {
@@ -35,16 +39,24 @@ public class games {
                     boolean possible = true;
                     List<String> rounds = Arrays.asList(line.split(":|;"));
                     int game = Integer.parseInt(rounds.get(0).replaceAll("[^0-9]", ""));
-                    rounds.removeFirst();
                     for (String round : rounds) {
-                        Matcher cubes = search.matcher(round);
-                        int redCount = 0;
-                        try {
-                            redCount = Integer.parseInt(cubes.group("green"));
-                        } catch (UnsupportedOperationException e) {
-                            redCount = 0;
+                        if (possible){
+                            Matcher redCubes = redSearch.matcher(round);
+                            boolean redSuccess = redCubes.find();
+                            Matcher greenCubes = greenSearch.matcher(round);
+                            boolean greenSuccess = greenCubes.find();
+                            Matcher blueCubes = blueSearch.matcher(round);
+                            boolean blueSuccess = blueCubes.find();
+                        int redCount = Integer.parseInt( redSuccess ? redCubes.group("red") :"0") ;
+                        int greenCount = Integer.parseInt( greenSuccess ? greenCubes.group("green") :"0") ;
+                        int blueCount = Integer.parseInt( blueSuccess ? blueCubes.group("blue") :"0") ;
+                        if (redCount > red || greenCount > green || blueCount > blue) {
+                            possible = false;
                         }
-                        System.out.println(redCount);
+                        }
+                    }
+                    if (possible) {
+                        total += game;
                     }
                 }
                 // Close the file and print the answer to console
