@@ -13,10 +13,10 @@ public class games {
         // Prep total variable
         int total = 0;
 
-        // Cube counts
-        int red = 12;
-        int green = 13;
-        int blue = 14;
+        // // Cube counts
+        // int red = 12;
+        // int green = 13;
+        // int blue = 14;
 
         // Prepare regex for cube counts
         String redString = "(?<red>[0-9]+)(?: red)";
@@ -36,6 +36,9 @@ public class games {
                 String line;
                 // Iterate through the file
                 while ((line = inp.readLine()) != null) {
+                    int minRed = 0;
+                    int minGreen = 0;
+                    int minBlue = 0;
                     boolean possible = true;
                     List<String> rounds = Arrays.asList(line.split(":|;"));
                     int game = Integer.parseInt(rounds.get(0).replaceAll("[^0-9]", ""));
@@ -50,14 +53,18 @@ public class games {
                         int redCount = Integer.parseInt( redSuccess ? redCubes.group("red") :"0") ;
                         int greenCount = Integer.parseInt( greenSuccess ? greenCubes.group("green") :"0") ;
                         int blueCount = Integer.parseInt( blueSuccess ? blueCubes.group("blue") :"0") ;
-                        if (redCount > red || greenCount > green || blueCount > blue) {
-                            possible = false;
+                        if (redCount > minRed) {
+                            minRed = redCount;
+                        }
+                        if (greenCount > minGreen) {
+                            minGreen = greenCount;
+                        }
+                        if (blueCount > minBlue) {
+                            minBlue = blueCount;
                         }
                         }
                     }
-                    if (possible) {
-                        total += game;
-                    }
+                    total += minRed*minGreen*minBlue;
                 }
                 // Close the file and print the answer to console
                 inp.close();
