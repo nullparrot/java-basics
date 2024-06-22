@@ -78,19 +78,4 @@ public class games {
         }
 
     }
-
-    // public static String replaceWordNumbers(String word) {
-    //     // For the input string, replace word numbers with numbers.
-    //     // I left the last character of each number to handle edge cases where teo numbers share a last and first character.
-    //     String nums = word.replaceAll("one", "1e");
-    //     nums = nums.replaceAll("two", "2o");
-    //     nums = nums.replaceAll("three", "3e");
-    //     nums = nums.replaceAll("four", "4");
-    //     nums = nums.replaceAll("five", "5e");
-    //     nums = nums.replaceAll("six", "6");
-    //     nums = nums.replaceAll("seven", "7n");
-    //     nums = nums.replaceAll("eight", "8t");
-    //     nums = nums.replaceAll("nine", "9e");
-    //     return nums;
-    // }
 }
