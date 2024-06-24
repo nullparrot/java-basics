@@ -36,6 +36,7 @@ public class games {
                 String line;
                 // Iterate through the file
                 while ((line = inp.readLine()) != null) {
+                    // Prepare placeholders to track how many cubes are needed
                     int minRed = 0;
                     int minGreen = 0;
                     int minBlue = 0;
@@ -43,6 +44,7 @@ public class games {
                     List<String> rounds = Arrays.asList(line.split(":|;"));
                     int game = Integer.parseInt(rounds.get(0).replaceAll("[^0-9]", ""));
                     for (String round : rounds) {
+                        // If the game is still possible, check the next batch of cubes
                         if (possible){
                             Matcher redCubes = redSearch.matcher(round);
                             boolean redSuccess = redCubes.find();
@@ -53,6 +55,7 @@ public class games {
                         int redCount = Integer.parseInt( redSuccess ? redCubes.group("red") :"0") ;
                         int greenCount = Integer.parseInt( greenSuccess ? greenCubes.group("green") :"0") ;
                         int blueCount = Integer.parseInt( blueSuccess ? blueCubes.group("blue") :"0") ;
+                        // Update the required cubes if the new numbers are higher
                         if (redCount > minRed) {
                             minRed = redCount;
                         }
@@ -64,6 +67,7 @@ public class games {
                         }
                         }
                     }
+                    // Multiply the required cubes together and add to total
                     total += minRed*minGreen*minBlue;
                 }
                 // Close the file and print the answer to console

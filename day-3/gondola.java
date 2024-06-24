@@ -1,36 +1,29 @@
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class gondola {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        
         System.out.println("Crunching numbers now...");
-        // Prep total variable
-        int total = 0;
-
-        // Try to open the input text file
-        try {
-            BufferedReader inp = new BufferedReader(
-                    new InputStreamReader(new FileInputStream("input.txt"))
-            );
-            try {
-                // Prepare to read each line of the file
-                String line;
-                // Iterate through the file
-                while ((line = inp.readLine()) != null) {
-                    
-                }
-                // Close the file and print the answer to console
-                inp.close();
-                System.out.println(total);
-
-            } catch (Exception c) {
-                System.err.println("Error Occured.. Closing File");
-            }
-        } catch (Exception e) {
-            System.err.println("Closing File");
+        List<String> listOfStrings
+            = new ArrayList<String>();
+       
+        // load the data from file
+        listOfStrings
+            = Files.readAllLines(Paths.get("file.txt"));
+       
+        // convert arraylist to array
+        String[] array
+            = listOfStrings.toArray(new String[0]);
+       
+        // print each line of string in array
+        for (String eachString : array) {
+            System.out.println(eachString);
         }
 
     }
